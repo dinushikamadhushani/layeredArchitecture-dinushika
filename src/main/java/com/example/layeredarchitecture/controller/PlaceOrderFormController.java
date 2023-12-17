@@ -325,7 +325,7 @@ public class PlaceOrderFormController {
         boolean b = saveOrder(orderId, LocalDate.now(), cmbCustomerId.getValue(),
                 tblOrderDetails.getItems().stream().map(tm -> new OrderDetailDTO(tm.getCode(), tm.getQty(), tm.getUnitPrice())).collect(Collectors.toList()));
 
-        if (b) {
+        if (!b) {
             new Alert(Alert.AlertType.INFORMATION, "Order has been placed successfully").show();
         } else {
             new Alert(Alert.AlertType.ERROR, "Order has not been placed successfully").show();
@@ -345,15 +345,12 @@ public class PlaceOrderFormController {
         Connection connection = null;
         try {
             connection = DBConnection.getDbConnection().getConnection();
-            //PreparedStatement stm = connection.prepareStatement("SELECT oid FROM `Orders` WHERE oid=?");
-            //stm.setString(1, orderId);
-            /*if order id already exist*/
 
-            //  connection = DBConnection.getDbConnection().getConnection();
+            /*if order id already exist*/
 
             //check order id already exist or not
             boolean b1 = orderDAO.existOrder(orderId);
-            if(b1){
+            if(!b1){
                return false;
              }
 
@@ -378,11 +375,9 @@ public class PlaceOrderFormController {
                 ItemDTO item = findItem(detail.getItemCode());
                 item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
 
+                boolean b = itemDAO.updateItem(new ItemDTO(item.getCode(), item.getDescription(),item.getUnitPrice(),item.getQtyOnHand()));
 
-                    boolean b = itemDAO.updateItem(new ItemDTO(item.getCode(), item.getDescription(),item.getUnitPrice(),item.getQtyOnHand()));
-
-               // if (!(pstm.executeUpdate() > 0)) {
-                    if (!b){
+                if (!b){
                     connection.rollback();
                     connection.setAutoCommit(true);
                     return false;

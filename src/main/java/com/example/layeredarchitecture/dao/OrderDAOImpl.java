@@ -20,7 +20,7 @@ public class OrderDAOImpl implements OrderDAO {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement stm = connection.prepareStatement("SELECT oid FROM `Orders` WHERE oid=?");
         stm.setString(1, orderId);
-        return stm.executeUpdate()>0;
+        return stm.executeQuery().next();
     }
 
     public boolean saveOrder(OrderDTO dto) throws SQLException, ClassNotFoundException {
