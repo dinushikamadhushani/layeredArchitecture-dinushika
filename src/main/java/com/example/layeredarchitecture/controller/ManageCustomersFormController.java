@@ -72,6 +72,7 @@ public class ManageCustomersFormController {
         tblCustomers.getItems().clear();
         /*Get all customers*/
         try{
+
             ArrayList<CustomerDTO> allCustomer = customerDAO.getAllCustomer();
             for (CustomerDTO dto:allCustomer){
                 tblCustomers.getItems().add(
@@ -192,8 +193,9 @@ public class ManageCustomersFormController {
 
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
-       boolean isExists=customerDAO.existCustomer(id);
-       return isExists;
+        return customerDAO.existCustomer(id);
+      // boolean isExists=customerDAO.existCustomer(id);
+      // return isExists;
     }
 
 
@@ -204,7 +206,8 @@ public class ManageCustomersFormController {
             if (!existCustomer(id)) {
                 new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
             }
-            boolean isDeleted=customerDAO.deleteCustomer(id);
+           // boolean isDeleted=customerDAO.deleteCustomer(id);
+            customerDAO.deleteCustomer(id);
 
             tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
             tblCustomers.getSelectionModel().clearSelection();
@@ -219,14 +222,9 @@ public class ManageCustomersFormController {
 
     private String generateNewId() {
         try {
-           ResultSet rst=customerDAO.genarateId();
-            if (rst.next()) {
-                String id = rst.getString("id");
-                int newCustomerId = Integer.parseInt(id.replace("C00-", "")) + 1;
-                return String.format("C00-%03d", newCustomerId);
-            } else {
-                return "C00-001";
-            }
+           String rst=customerDAO.genarateId();
+
+            return customerDAO.genarateId();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new id " + e.getMessage()).show();
         } catch (ClassNotFoundException e) {

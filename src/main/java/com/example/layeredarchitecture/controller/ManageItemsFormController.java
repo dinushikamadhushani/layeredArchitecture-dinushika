@@ -84,6 +84,7 @@ public class ManageItemsFormController {
                 tblItems.getItems().add(new ItemTM(rst.getString("code"), rst.getString("description"), rst.getBigDecimal("unitPrice"), rst.getInt("qtyOnHand")));
             } */
         try {
+           // ItemDAO itemDAO = new ItemDAOImpl();
             ArrayList<ItemDTO> allItem = itemDAO.getAllItems();
             for (ItemDTO dto:allItem){
                 tblItems.getItems().add(
@@ -153,8 +154,8 @@ public class ManageItemsFormController {
                 new Alert(Alert.AlertType.ERROR, "There is no such item associated with the id " + code).show();
             }
 
-
-            boolean isDelete = itemDAO.deleteItem(code);
+           // ItemDAO itemDAO = new ItemDAOImpl();
+            itemDAO.deleteItem(code);
 
             tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
             tblItems.getSelectionModel().clearSelection();
@@ -195,7 +196,7 @@ public class ManageItemsFormController {
                 }
                 //Save Item
 
-
+              //  ItemDAO itemDAO = new ItemDAOImpl();
                 boolean isSave = itemDAO.saveItem(new ItemDTO(code,description, unitPrice,qtyOnHand));
                 if (isSave) {
                     tblItems.getItems().add(new ItemTM(code, description, unitPrice, qtyOnHand));
@@ -212,9 +213,10 @@ public class ManageItemsFormController {
                     new Alert(Alert.AlertType.ERROR, "There is no such item associated with the id " + code).show();
                 }
                 /*Update Item*/
+               // ItemDAO impl = new ItemDAOImpl();
+               // impl.updateItem(new ItemDTO(code, description,unitPrice,qtyOnHand));
                 ItemDTO dto = new ItemDTO(code, description,unitPrice,qtyOnHand);
-
-                itemDAO.updateItem(dto);
+                 itemDAO.updateItem(dto);
 
                 ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
 
@@ -235,6 +237,7 @@ public class ManageItemsFormController {
 
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
+       // ItemDAO itemDAO = new ItemDAOImpl();
 
        boolean isExist = itemDAO.existItem(code);
        return isExist;
@@ -243,15 +246,9 @@ public class ManageItemsFormController {
 
     private String generateNewId() {
         try {
+           // ItemDAO itemDAO = new ItemDAOImpl();
+            return itemDAO.genarateId();
 
-           ResultSet rst = itemDAO.genarateId();
-            if (rst.next()) {
-                String id = rst.getString("code");
-                int newItemId = Integer.parseInt(id.replace("I00-", "")) + 1;
-                return String.format("I00-%03d", newItemId);
-            } else {
-                return "I00-001";
-            }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {

@@ -19,6 +19,6 @@ public interface ItemDAO {
 
     boolean deleteItem(String code) throws SQLException, ClassNotFoundException;
 
-    ResultSet genarateId() throws SQLException, ClassNotFoundException;
+    String genarateId() throws SQLException, ClassNotFoundException;
 
 }

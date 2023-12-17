@@ -70,10 +70,17 @@ public class ItemDAOImpl implements ItemDAO{
 
     @Override
 
-    public ResultSet genarateId() throws SQLException, ClassNotFoundException {
+    public String genarateId() throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         ResultSet rst = connection.createStatement().executeQuery("SELECT code FROM Item ORDER BY code DESC LIMIT 1;");
-        return rst;
+
+         if (rst.next()) {
+                String id = rst.getString("code");
+                int newItemId = Integer.parseInt(id.replace("I00-", "")) + 1;
+                return String.format("I00-%03d", newItemId);
+            } else {
+                return "I00-001";
+            }
     }
 }
 
