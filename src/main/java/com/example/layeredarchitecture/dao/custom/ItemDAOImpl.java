@@ -1,13 +1,13 @@
-package com.example.layeredarchitecture.dao;
+package com.example.layeredarchitecture.dao.custom;
 
-import com.example.layeredarchitecture.db.DBConnection;
-import com.example.layeredarchitecture.model.CustomerDTO;
+import com.example.layeredarchitecture.dao.custom.Impl.ItemDAO;
+import com.example.layeredarchitecture.dao.SQLUtil;
 import com.example.layeredarchitecture.model.ItemDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ItemDAOImpl implements ItemDAO{
+public class ItemDAOImpl implements ItemDAO {
     @Override
     public ArrayList<ItemDTO> getAll() throws SQLException, ClassNotFoundException {
 

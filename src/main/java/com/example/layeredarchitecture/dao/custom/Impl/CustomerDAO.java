@@ -1,13 +1,6 @@
-package com.example.layeredarchitecture.dao;
+package com.example.layeredarchitecture.dao.custom.Impl;
 
-import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.CustomerDTO;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 public interface CustomerDAO extends CrudDAO<CustomerDTO>{
     /* ArrayList<CustomerDTO> getAllCustomer() throws SQLException, ClassNotFoundException;
