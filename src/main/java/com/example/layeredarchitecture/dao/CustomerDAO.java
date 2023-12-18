@@ -9,8 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface CustomerDAO {
-     ArrayList<CustomerDTO> getAllCustomer() throws SQLException, ClassNotFoundException;
+public interface CustomerDAO extends CrudDAO<CustomerDTO>{
+    /* ArrayList<CustomerDTO> getAllCustomer() throws SQLException, ClassNotFoundException;
     boolean saveCoustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException;
 
      void updateCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException;
@@ -20,5 +20,8 @@ public interface CustomerDAO {
     String genarateId() throws SQLException, ClassNotFoundException;
 
     public  CustomerDTO searchCustomer(String id) throws SQLException, ClassNotFoundException ;
+
+     */
+
 
 }

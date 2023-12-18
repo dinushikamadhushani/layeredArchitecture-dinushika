@@ -73,7 +73,7 @@ public class ManageCustomersFormController {
         /*Get all customers*/
         try{
 
-            ArrayList<CustomerDTO> allCustomer = customerDAO.getAllCustomer();
+            ArrayList<CustomerDTO> allCustomer = customerDAO.getAll();
             for (CustomerDTO dto:allCustomer){
                 tblCustomers.getItems().add(
                         new CustomerTM(
@@ -153,7 +153,7 @@ public class ManageCustomersFormController {
                 if (existCustomer(id)) {
                     new Alert(Alert.AlertType.ERROR, id + " already exists").show();
                 }
-                boolean isSave = customerDAO.saveCoustomer(new CustomerDTO(id,name, address));
+                boolean isSave = customerDAO.save(new CustomerDTO(id,name, address));
                 if (isSave) {
                     tblCustomers.getItems().add(new CustomerTM(id, name, address));
                 }
@@ -172,7 +172,7 @@ public class ManageCustomersFormController {
                 }
                 CustomerDTO dto=new CustomerDTO(id,name,address);
 
-                customerDAO.updateCustomer(dto);
+                customerDAO.update(dto);
 
 
 
@@ -193,7 +193,7 @@ public class ManageCustomersFormController {
 
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
-        return customerDAO.existCustomer(id);
+        return customerDAO.exist(id);
       // boolean isExists=customerDAO.existCustomer(id);
       // return isExists;
     }
@@ -207,7 +207,7 @@ public class ManageCustomersFormController {
                 new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
             }
            // boolean isDeleted=customerDAO.deleteCustomer(id);
-            customerDAO.deleteCustomer(id);
+            customerDAO.delete(id);
 
             tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
             tblCustomers.getSelectionModel().clearSelection();
